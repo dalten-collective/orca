@@ -1,4 +1,5 @@
 ::
+::  Developer Notes
 :: - Both parties need to do this - or it will be broken
 :: - Check to confirm that it is the case that they've joined
 :: - look @ how google docs simultaneous edits happen re: timing
@@ -23,10 +24,11 @@
 ::
 ::  pod & pods - define a pod and associate a resource
 ::
-+$  pod   $:(fin=term who=(set resource))
++$  pod   [fin=term who=(set resource) eco=?]
 +$  pods  (map resource pod)
++$  por   [=pod res=resource]
 ::
-::  srkw - poke actions
+::  srkw - poke actions - (Southern Ring Killer Whales)
 ::
 ::  %call-pod invites a (set ship) to join your pod.
 ::  %swimaway allows a ship to leave a pod.
@@ -34,14 +36,14 @@
 ::  %nearecho creates a self-hosted ring (ring between)
 ::    two or more chats that you own.
 ::
-+$  srkw  $%  [%form-pod fin=term res=resource]
-              [%call-pod =pod add=(set ship)]
-              [%swimaway =pod]
++$  srkw  $%  [%form fin=term res=resource]
+              [%call res=resource add=(set ship)]
+              [%swim res=resource]
             ::
-              [%hearsong =pod luv=? rus=(unit resource)]
+              [%hear urs=resource luv=? myn=resource]
             ::
-              [%nearecho fin=term rez=(set resource)]
-              [%nearmore =pod rez=(set resource)]
+              [%echo fin=term rez=(set resource)]
+              [%more res=resource rez=(set resource)]
           ==
 ::
 ::  sing - machine actions
@@ -49,12 +51,18 @@
 ::  %biggs sends a seal, or a new node for a pod.
 ::  %leave is an orca leaving one of your pods.
 ::
-+$  sing  $%  [%biggs =pod res=resource seal=(map index node)]
-              [%unite =pod]
-              [%leave =pod]
++$  sing  $%  [%biggs =pod seal=wave]
+              [%tempt =por]
+              [%agree =por]
+              [%leave res=resource]
+              [%unite ser=(set resource)]
           ==
 ::
 ::  wave - a graph-store "nodes" for an add-nodes poke
 ::
 +$  wave  (map index node)
+::
+::  kril - a list-unit of having performed ~(tap by wex.bowl)
+::
++$  kril  [[wir=path sip=ship ter=@tas] [ack=? pat=path]]
 --
