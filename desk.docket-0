@@ -1,6 +1,6 @@
 :~  title+'orca'
     info+'Now that\'s podchatting'
-    color+0x59.4d5b
+    color+0x11.181e
     site+/apps/orca
     base+'orca'
     version+[0 0 1]

@@ -215,7 +215,7 @@
         ~&  >  
           [%orca %spyhop name.res.vaz `@tas`'-' %left %pod ~]
         =.  fam
-          (~(del by fam) res.vaz u.podes)
+          (~(del by fam) res.vaz)
         `state
       ::
           %hear
