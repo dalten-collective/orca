@@ -57,6 +57,11 @@
     %pass   [%orca %spyhop ~]
     %agent  [our.bowl %graph-store]
     %watch  [%updates ~]
+      ==
+      :*
+    %pass   [%orca %migrate %pods (scot %da now.bowl) ~]
+    %arvo   %b
+    [%wait (add now.bowl ~m30)]
   ==  ==
 ::
 ++  on-save
@@ -69,18 +74,16 @@
   =/  old=versioned-state  !<(versioned-state ole)
   ?-    -.old
       %0
-    =/  cards=(list card)
-      :~  :*
-        %pass   [%orca %spyhop ~]
-        %agent  [our.bowl %graph-store]
-        %watch  [%updates ~]
-      ==  ==
-    :_  this(state old)
     =/  wux  :-  [/orca/spyhop our.bowl %graph-store]
              [%.y /updates]
-    ?:  (~(has in wex.bowl) wux)
-      ~
-   cards
+    ?:  (~(has in (silt ~(tap by wex.bowl))) wux)
+      `this(state old)
+    :_  this(state old)
+    :~  :*
+      %pass   [%orca %spyhop ~]
+      %agent  [our.bowl %graph-store]
+      %watch  [%updates ~]
+    ==  ==
   ==
 ::
 ++  on-poke
@@ -89,7 +92,7 @@
   =^  cards  state
     ?+    mark  `state
         %orca-song
-      ::  mostly handled in wires, save agree
+      ::  mostly handled in +on-agent, save agree and tempt
       =/  vaz=sing  !<(sing vase)
       ?-    -.vaz
           %biggs
@@ -98,6 +101,7 @@
         `state
       ::
           %tempt
+        ::  receives an offer to join a pod
         ?:  (~(has in cal) por.vaz)
           `state
         `state(cal (~(put in cal) por.vaz))
@@ -109,13 +113,14 @@
         =/  wiu=(unit resource)
           (~(wit mom:fish pod.por.vaz) our.bowl)
         ?~  wiu
-          !!
+          `state(pup (~(del ju pup) src.bowl pod.por.vaz))
+        ?.  (~(has by fam) u.wiu)
+          `state(pup (~(del ju pup) src.bowl pod.por.vaz))
+        =/  pew=pod  (~(got by fam) u.wiu)
         =/  new=(set resource)
-          (~(put in who.pod.por.vaz) res.por.vaz)
-        =/  pew=pod  pod.por.vaz
-        =.  pew  pew(who (~(uni in who.pew) new))
-        =.  fam
-          (~(put by fam) u.wiu pew)
+          (~(put in who.pew) res.por.vaz)
+        =.  pew  pew(who new)
+        =.  fam  (~(put by fam) u.wiu pew)
         =/  wir=path
           :~  %spake
               (scot %p entity.u.wiu)  (scot %tas name.u.wiu)
@@ -192,6 +197,7 @@
           t.adl
         ::
             coz
+          %+  welp  coz
           :~  :*
             %pass   wir
             %agent  [i.adl %orca]
@@ -231,7 +237,7 @@
                 name.myn.vaz
             ==
           `state
-        ~&  >  [%follow %pod]
+        ~&  >  [%orca %follow %pod ~]
         =.  fam  (~(put by fam) myn.vaz pid)
         =/  wir=path
           :~  
@@ -255,7 +261,7 @@
         ?:  =(~(wyt in new) 0)
           ~&  >>>  [%orca %echo %need %rez ~]
           `state
-        ~&  >  [%orca %hears %itself `@tas`'-' fin.vaz]
+        ~&  >  [%orca %hears %itself `@tas`'-' fin.vaz ~]
         =+  pud=[fin.vaz rez.vaz %.y]
         =+  lew=(snag 0 ~(tap in new))
         =.  fam  (~(put by fam) [lew pud])
@@ -271,7 +277,7 @@
         ?:  =(~(wyt in new) 0)
           ~&  >>>  [%orca %more %need %rez ~]
           `state
-        ~&  >  [%orca %finds %more `@tas`'-' fin.pew]
+        ~&  >  [%orca %finds %more `@tas`'-' fin.pew ~]
         =.  pew  pew(who (~(uni in who.pew) new))
         =.  fam  (~(put by fam) [res.vaz pew])
         `state
@@ -297,7 +303,7 @@
       %watch-ack
     ?~  p.sign
       `this
-    ~&  >>>  [%orca %panic %nack wire ~]
+    ::~&  >>  [%orca %panic %nack wire ~]
     `this
   ::
       %poke-ack
@@ -342,13 +348,12 @@
   ::
       %fact
     ?+    +<.sign
-      ~&  >>>  [%wat %mean]  `this
+      ~&  >>>  [%orca %confused ~]  `this
     ::
         %graph-update-3
       =/  act=action  +:!<(update +>.sign)
       ?+    -.act  `this
           %add-nodes
-        ~&  >  nodes.act
         =/  mec=(map resource resource)
           (~(rep by fam) dad:fish)
         =/  rus=(unit resource)
@@ -357,7 +362,6 @@
             ?.  (~(has in ~(key by mec)) resource.act)
               ~
             (~(get by mec) resource.act)
-          ~&  >  "correct"
           `resource.act
         ?~  rus
           `this
@@ -375,7 +379,7 @@
         [(slav %p +<.wire) (slav %tas +>-.wire)]
       =/  yours=resource
         [(slav %p +>+<.wire) (slav %tas +>+>-.wire)]
-      =/  fluke=term  (slav %tas +>+>+<.wire)
+      =/  fluke=term         (slav %tas +>+>+<.wire)
       =/  podes=(unit pod)   (~(get by fam) mines)
       ?~  podes
         :_  this
@@ -402,55 +406,54 @@
         `this
       ::
           %unite
-        =/  brood=(list resource)
-          ~(tap in (~(dif in who.u.podes) ser.note))
+        =+  teeth=~(tap in ser.note)
         =.  podes
           podes(who.u (~(uni in who.u.podes) ser.note))
         =+  cards=*(list card)
         |-
-        ?~  brood
+        ?~  teeth
           [cards this(fam (~(put by fam) mines u.podes))]
-        ?:  =(entity.i.brood our.bowl)
-          $(brood t.brood)
+        ?:  =(entity.i.teeth our.bowl)
+          $(teeth t.teeth)
         =/  wir=path
           :~  
             %spake
             (scot %p entity.mines)    (scot %tas name.mines)
-            (scot %p entity.i.brood)  (scot %tas name.i.brood)
+            (scot %p entity.i.teeth)  (scot %tas name.i.teeth)
             (scot %tas fluke)
           ==
         =/  pat=path
           :~  %spake
-              (scot %p entity.i.brood)
-              (scot %tas name.i.brood)
+              (scot %p entity.i.teeth)
+              (scot %tas name.i.teeth)
               (scot %tas fluke)
           ==
         =/  haz=(unit [acked=? =path])
-            (~(get by wex.bowl) [wir entity.i.brood %orca])
+            (~(get by wex.bowl) [wir entity.i.teeth %orca])
         ?~  haz
           %=    $
-              brood
-            t.brood
+              teeth
+            t.teeth
           ::
               cards
             %+  welp  cards
             :~  :*
               %pass   wir
-              %agent  [entity.i.brood %orca]
+              %agent  [entity.i.teeth %orca]
               %watch  pat
             ==  ==
           ==
         ?:  =(u.haz [%.y pat])
-          $(brood t.brood)
+          $(teeth t.teeth)
         %=    $
-            brood
-          t.brood
+            teeth
+          t.teeth
         ::
             cards
           %+  welp  cards
           :~  :*
             %pass   wir
-            %agent  [entity.i.brood %orca]
+            %agent  [entity.i.teeth %orca]
             %watch  pat
           ==  ==
         ==
@@ -467,13 +470,12 @@
       [%spake @ @ @ ~]
     =/  theme=resource
       [(slav %p +<.path) (slav %tas +>-.path)]
-    =/  podes=pod   (~(got by fam) theme)
+    =/  podos=pod   (~(got by fam) theme)
     =/  fluke=term  (slav %tas +>+<.path)
     ::
-    ?.  =(fluke fin.podes)
-      (on-watch:def path)
-    ::
-    ?>  (~(huh mom:fish podes) src.bowl)
+    ?.  =(fluke fin.podos)
+      !!
+    ?>  (~(huh mom:fish podos) src.bowl)
     =/  lyric=(list content)
       :~  [%text 'pod-chat click:']
           [%mention src.bowl]
@@ -486,15 +488,15 @@
       %-  ~(put by *wave)
       [~[now.bowl] [poast [%empty ~]]]
     =/  wired=^path
-      [%echo (scot %da now.bowl) (scot %tas fin.podes) ~]
+      [%echo (scot %da now.bowl) (scot %tas fin.podos) ~]
     :_  this
     :~  :*
       %give  %fact  ~
-      [%orca-song !>(`sing`[%biggs podes moist])]
+      [%orca-song !>(`sing`[%biggs podos moist])]
         ==
         :*
       %give  %fact  ~
-      [%orca-song !>(`sing`[%unite who.podes])]
+      [%orca-song !>(`sing`[%unite who.podos])]
         ==
         :*
       %pass   wired
@@ -508,6 +510,7 @@
   |=  pat=path
   ^-  (quip card _this)
   ?+    pat  `this
+  ::  [%spake watched-resource fin]
       [%spake @ @ @ ~]
     =/  theme=resource
       [(slav %p +<.pat) (slav %tas +>-.pat)]
@@ -525,7 +528,63 @@
     `(list card)`[%give %fact [pat]~ %orca-song !>(`sing`copla)]~
   ==
 ::
-++  on-arvo  on-arvo:def
+++  on-arvo
+  |=  [=wire =sign-arvo]
+  =/  test=(list card)
+      :~  :*
+        %pass  [%orca %migrate %pods (scot %da now.bowl) ~]
+        %arvo  %b
+        [%wait (add now.bowl ~m30)]
+      ==  ==
+  |^
+  ?+    wire  [test this]
+      [%orca %migrate %pods @ ~]
+    =+  sod=(sy ~(val by fam))
+    :_  this
+    (welp test (~(rep in sod) tic))
+  ==
+  ++  tic
+    |=  [inn=pod out=(list card)]
+    =+  wiu=(~(wit mom:fish inn) our.bowl)
+    ?~  wiu
+      out
+    =+  hav=out:(~(rep by wex.bowl) toc)
+    =+  ned=~(tap in (~(dif in who.inn) hav))
+    |-
+    ?~  ned
+      out
+    ?:  =(our.bowl entity.i.ned)
+      out
+    =/  wir=path
+      :~  %spake
+          (scot %p entity.u.wiu)  (scot %tas name.u.wiu)
+          (scot %p entity.i.ned)  (scot %tas name.i.ned)
+          (scot %tas fin.inn)
+      ==   
+    =/  pat=path
+      :~  %spake
+          (scot %p entity.i.ned)  (scot %tas name.i.ned)
+          (scot %tas fin.inn)
+      ==
+    %=    $
+        ned
+      t.ned
+    ::
+        out
+      %+  welp  out
+      :~  :*
+        %pass   wir
+        %agent  [entity.i.ned %orca]
+        %watch  pat
+      ==  ==
+    ==
+  ++  toc
+    |=  [inn=$:(* [a=? p=path]) out=(set resource)]
+    ?+    p.inn  out
+        [%spake @ @ @ ~]
+      (~(put in out) (slav %p +<.p.inn) (slav %tas +>-.p.inn))
+    ==
+  --
 ::
 ++  on-peek  on-peek:def
 ::
@@ -577,7 +636,6 @@
     |=  act=[%add-nodes res=resource nodes=wave]
     ^-  (list card)
     =+  [herd=~(tap in who.p) out=*(list card)]
-    ~&  herd
     |-
     ?~  herd
       =+  tun=[%biggs p nodes.act]
