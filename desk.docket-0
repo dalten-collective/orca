@@ -1,5 +1,5 @@
 :~  title+'orca'
-    info+'Now that\'s podchatting'
+    info+'Now THIS is podchatting'
     color+0x11.181e
     site+/apps/orca
     base+'orca'
