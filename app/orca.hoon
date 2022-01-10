@@ -166,6 +166,7 @@
       =/  vaz=srkw  !<(srkw vase)
       ?-    -.vaz
           %form
+        ?>  =(our.bowl entity.res.vaz)
         =+  pud=[fin.vaz (silt ~[res.vaz]) %.n]
         =.  fam  (~(put by fam) [res.vaz pud])
         ~&  >  [%orca %form %pod fin.vaz]
@@ -540,9 +541,15 @@
   ?+    wire  [test this]
       [%orca %migrate %pods @ ~]
     =+  sod=(sy ~(val by fam))
-    :_  this
+    :_  this(mem ~)
     (welp test (~(rep in sod) tic))
   ==
+  ++  toc
+    |=  [inn=$:(* [a=? p=path]) out=(set resource)]
+    ?+    p.inn  out
+        [%spake @ @ @ ~]
+      (~(put in out) (slav %p +<.p.inn) (slav %tas +>-.p.inn))
+    ==
   ++  tic
     |=  [inn=pod out=(list card)]
     =+  wiu=(~(wit mom:fish inn) our.bowl)
@@ -577,12 +584,6 @@
         %agent  [entity.i.ned %orca]
         %watch  pat
       ==  ==
-    ==
-  ++  toc
-    |=  [inn=$:(* [a=? p=path]) out=(set resource)]
-    ?+    p.inn  out
-        [%spake @ @ @ ~]
-      (~(put in out) (slav %p +<.p.inn) (slav %tas +>-.p.inn))
     ==
   --
 ::
