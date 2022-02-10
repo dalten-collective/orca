@@ -8,8 +8,8 @@
 ::  May they grow harmoneously and may the melody of life
 ::  and The Word play for 10,000 years, to guide them.
 ::
-/-  *orca, post, store=graph-store
-/+  default-agent, dbug, *resource
+/-  *orca, post, store=graph-store, mdst=metadata-store
+/+  default-agent, dbug, *resource, sign=signatures
 ::
 |%
 +$  versioned-state
@@ -391,8 +391,9 @@
       ::
       ?+    -.note  `this
           %biggs
-        =/  notes=action:store  [%add-nodes mines seal.note]
-        :_  this(mem (~(put in mem) seal.note))
+        =+  wav=`wave`(~(rep by seal.note) ~(fix sis:fish mines))
+        =/  notes=action:store  [%add-nodes mines wav]
+        :_  this(mem (~(put in mem) wav))
         :~  :*
           %pass   /blip/(scot %tas fluke)
           %agent  [our.bowl %graph-store]
@@ -588,7 +589,6 @@
   --
 ::
 ++  on-peek  on-peek:def
-::
 ++  on-fail  on-fail.def
 --
 ::
@@ -604,8 +604,78 @@
   ?~  rel
     out
   $(rel t.rel, out (~(put by out) i.rel res.inn))
+::
+++  sis
+  |_  res=resource
+  ++  fix
+    |=  [[ind=index:store nod=node:store] out=wave]
+    ?.  ?=(%.y -.post.nod)
+      (~(put by out) ind nod)
+    ?~  hash.p.post.nod
+      (~(put by out) ind nod)
+    =*  p  p.post.nod
+    ?:  =((mix contents.p) contents.p)
+      =/  mussel=post:store
+        :*  author.p
+            index.p
+            time-sent.p
+            (mix contents.p)
+            hash.p
+            %-  ~(put in signatures.p)
+            (sign:sign our.bol now.bol u.hash.p)
+        ==  
+      (~(put by out) ind [[%.y mussel] (kid children.nod)])
+    =/  wow=@ux
+      `@ux`(sham [~ author.p time-sent.p (mix contents.p)])
+    =/  limpet=post:store
+      :*  author.p
+          index.p
+          time-sent.p
+          (mix contents.p)
+          `wow
+          (sy ~[(sign:sign our.bol now.bol wow)])
+      ==
+    (~(put by out) ind [[%.y limpet] (kid children.nod)])
+  ::
+  ++  mix
+    |=  loc=(list content:store)
+    =+  [out=*(list content:store) mux=max]
+    |-
+    ^-  (list content:store)
+    ?~  loc
+      (flop out)
+    ?.  ?=([%reference @ *] i.loc)
+      $(loc t.loc, out [i.loc out])
+    ?.  ?=([%graph [@ @] [[@ @] *]] +.i.loc)
+      $(loc t.loc, out [i.loc out])
+    %=  $
+      loc  t.loc
+      out  :_  out
+           :*  %reference
+               %graph
+               (~(got by mux) [%graph res])
+               :-  res
+               +>+>.i.loc
+           ==
+    ==
+  ::
+  ++  max
+    =-  .^((map md-resource:mdst resource) %gy -)
+    :~  (scot %p our.bol)   %metadata-store
+        (scot %da now.bol)  %resource-indices
+    ==
+  ::
+  ++  kid
+    |=  int=internal-graph:store
+    =+  out=*internal-graph:store
+    ?:  ?=([%empty ~] int)
+      out
+    int
+  --
+::
 ++  mom
   |_  p=pod
+  ::
   ++  aar
     =+  [luq=~(tap in who.p) kig=*(set ship)]
     ^-  (set ship)
@@ -613,7 +683,6 @@
     ?~  luq
       kig
     $(luq t.luq, kig (~(put in kig) entity.i.luq))
-  ::
   ::
   ++  wit
     |=  sip=ship
