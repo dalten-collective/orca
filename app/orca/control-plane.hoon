@@ -225,6 +225,8 @@
                     %-  ~(rep in metas)
                     |=  [res=resource out=marl]
                     ^-  marl
+                    ?.  =(our.bol -.res)
+                      out
                     :_  out
                     ;option
                         =name  "resource"
@@ -387,6 +389,8 @@
                         %-  ~(rep in metas)
                         |=  [res=resource out=marl]
                         ^-  marl
+                        ?.  =(our.bol -.res)
+                          out
                         :_  out
                         ;option
                           =name  "resource"
