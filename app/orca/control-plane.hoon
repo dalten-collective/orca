@@ -180,6 +180,8 @@
                     ^-  marl
                     %-  ~(rep in metas)
                     |=  [res=resource out=marl]
+                    ?.  =(our.bol -.res)
+                      out
                     ^-  marl
                     :_  out
                     ;option
