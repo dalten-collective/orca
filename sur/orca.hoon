@@ -22,6 +22,15 @@
 ::
 |%
 ::
+::  state-0
+::
++$  state-0
+  $:  fam=pods
+      pup=(jug ship pod)
+      cal=(set por)
+      mem=(set wave)
+  ==
+::
 ::  pod - a [fin=identifier who=group of ships eco=?].
 ::  pods - a (map resource pod).
 ::  por - a [pod resource].

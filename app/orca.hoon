@@ -9,7 +9,8 @@
 ::  and The Word play for 10,000 years, to guide them.
 ::
 /-  *orca, post, store=graph-store, mdst=metadata-store
-/+  default-agent, dbug, *resource, sign=signatures
+/+  default-agent, dbug, *resource, sign=signatures, rudder
+/~  pages  (page:rudder state-0 srkw)  /app/orca
 ::
 |%
 +$  versioned-state
@@ -26,10 +27,7 @@
 ::
 +$  state-zero
   $:  %0
-      fam=pods
-      pup=(jug ship pod)
-      cal=(set por)
-      mem=(set wave)
+      state-0
   ==
 ::
 +$  card      card:agent:gall
@@ -54,14 +52,19 @@
   :_  this
   ^-  (list card)
   :~  :*
-    %pass   [%orca %spyhop ~]
-    %agent  [our.bowl %graph-store]
-    %watch  [%updates ~]
+    %pass     [%orca %spyhop ~]
+    %agent    [our.bowl %graph-store]
+    %watch    [%updates ~]
       ==
       :*
-    %pass   [%orca %migrate %pods (scot %da now.bowl) ~]
-    %arvo   %b
-    [%wait (add now.bowl ~m30)]
+    %pass     [%orca %migrate %pods (scot %da now.bowl) ~]
+    %arvo     %b
+    %wait     (add now.bowl ~m30)
+      ==
+      :*
+    %pass     [%eyre %connect ~]
+    %arvo     %e
+    %connect  [[~ [%apps %orca ~]] dap.bowl]
   ==  ==
 ::
 ++  on-save
@@ -70,25 +73,63 @@
 ::
 ++  on-load
   |=  ole=vase
-  ~&  >>  [%orca %fluke %slap]
+  =+  cards=*(list card)
   =/  old=versioned-state  !<(versioned-state ole)
   ?-    -.old
       %0
-    =/  wux  :-  [/orca/spyhop our.bowl %graph-store]
-             [%.y /updates]
-    ?:  (~(has in (silt ~(tap by wex.bowl))) wux)
-      `this(state old)
-    :_  this(state old)
-    :~  :*
-      %pass   [%orca %spyhop ~]
-      %agent  [our.bowl %graph-store]
-      %watch  [%updates ~]
-    ==  ==
+    =?    cards
+        =;  eyre-stat=(list [binding:eyre duct action:eyre])
+          !(~(has in ~(key by (malt eyre-stat))) [~ /apps/orca])
+        .^  (list [binding:eyre duct action:eyre])
+            %e 
+            :~  (scot %p our.bowl)
+                %bindings
+                (scot %da now.bowl)
+            ==
+        ==
+      :_  cards
+      =+  [[~ [%apps %orca ~]] dap.bowl]
+      [%pass /eyre/connect %arvo %e %connect -]
+    
+    =?    cards
+        =+  kez=(~(get by wex.bowl) [/orca/spyhop our.bowl %graph-store])
+        ?~(kez %.y !-.u.kez)
+      :_  cards
+      :*  %pass   [%orca %spyhop ~]
+          %agent  [our.bowl %graph-store]
+          %watch  [%updates ~]
+      ==
+    [cards this(state old)]
   ==
 ::
 ++  on-poke
   |=  [=mark =vase]
   ^-  (quip card _this)
+  ?:  =(%handle-http-request mark)
+    =;  out=(quip card state-0)
+      [-.out this(state [%0 +.out])]
+    %.  [bowl !<(order:rudder vase) +.state]
+    %:  (steer:rudder state-0 srkw)
+      pages
+    ::
+      |=  =trail:rudder
+      ^-  (unit place:rudder)
+      ?~  site=(decap:rudder /apps/orca site.trail)  ~
+      ?+  u.site  ~
+        ~       `[%page & %control-plane]
+        [%$ ~]  `[%away /apps/orca]
+      ==
+    ::
+      |=  =order:rudder
+      ^-  [[(unit reply:rudder) (list card)] state-0]
+      =;  msg=@t  [[`[%code 404 msg] ~] +.state]
+      %+  rap  3
+      ~['orca error -> page=' url.request.order ' not found']
+    ::
+      |=  act=srkw
+      ^-  $@(@t [brief:rudder (list card) state-0])
+      (bro:fish act)
+    ==
   =^  cards  state
     ?+    mark  `state
         %orca-song
@@ -166,7 +207,18 @@
       =/  vaz=srkw  !<(srkw vase)
       ?-    -.vaz
           %form
-        ?>  =(our.bowl entity.res.vaz)
+        =/  old=(set resource)
+          =-  (~(uni in ~(key by fam)) -)
+          %+  roll  ~(val by fam)
+          |=  [[@ who=(set resource) @] o=(set resource)]
+          %-  ~(uni in o)
+          ^-  (set resource)
+          %-  ~(rep in who)
+          |=  [i=resource o=(set resource)]
+          ?.(=(our.bol -.i) o (~(put in o) i))
+        ?:  (~(has in old) res.vaz)
+          ~&  >  [%orca %spyhop %double %spend res.vaz]
+          `state
         =+  pud=[fin.vaz (silt ~[res.vaz]) %.n]
         =.  fam  (~(put by fam) [res.vaz pud])
         ~&  >  [%orca %form %pod fin.vaz]
@@ -258,7 +310,15 @@
         ==  ==
       ::
           %echo
-        =+  new=(~(dif in rez.vaz) ~(key by fam))
+        =/  new=(set resource)
+          =-  %-  ~(dif in rez.vaz) 
+              (~(uni in ~(key by fam)) -)
+          %+  roll  ~(val by fam)
+          |=  [[@ who=(set resource) @] o=(set resource)]
+          %-  ~(uni in o)  ^-  (set resource)
+          %-  ~(rep in who)
+          |=  [i=resource o=(set resource)]
+          ?.(=(our.bol -.i) o (~(put in o) i))
         ?:  =(~(wyt in new) 0)
           ~&  >>>  [%orca %echo %need %rez ~]
           `state
@@ -269,7 +329,15 @@
         `state
       ::
           %more
-        =+  new=(~(dif in rez.vaz) ~(key by fam))
+        =/  new=(set resource)
+          =-  %-  ~(dif in rez.vaz) 
+              (~(uni in ~(key by fam)) -)
+          %+  roll  ~(val by fam)
+          |=  [[@ who=(set resource) @] o=(set resource)]
+          %-  ~(uni in o)  ^-  (set resource)
+          %-  ~(rep in who)
+          |=  [i=resource o=(set resource)]
+          ?.(=(our.bol -.i) o (~(put in o) i))
         ?>  (~(has by fam) res.vaz)
         =+  pew=(~(got by fam) res.vaz)
         ?.  eco.pew
@@ -468,6 +536,9 @@
   |=  =path
   ^-  (quip card _this)
   ?+    path  (on-watch:def path)
+  ::  [%http-response *]
+      [%http-response *]
+    `this
   ::  [%spake watched-resource fin]
       [%spake @ @ @ ~]
     =/  theme=resource
@@ -734,4 +805,139 @@
       ==  ==
     ==
   --
+::
+++  bro
+  |=  act=srkw
+  ^-  $@(@t [brief:rudder (list card) state-0])
+  ?-    -.act
+      %form
+    =/  old=(set resource)
+      =-  (~(uni in ~(key by fam)) -)
+      %+  roll  ~(val by fam)
+      |=  [[@ who=(set resource) @] o=(set resource)]
+      %-  ~(uni in o)
+      ^-  (set resource)
+      %-  ~(rep in who)
+      |=  [i=resource o=(set resource)]
+      ?.(=(our.bol -.i) o (~(put in o) i))
+    ?:  (~(has in old) res.act)
+      ['orca-fail-re-use' ~ +.state]
+    =+  pud=[fin.act (silt ~[res.act]) %.n]
+    =.  fam  (~(put by fam) [res.act pud])
+    ['orca-success-form' ~ +.state]
+  ::
+      %call
+    ?.  (~(has by fam) res.act)
+      ['orca-fail-bad-pod-mom' ~ +.state]
+    =/  per=por
+      [(~(got by fam) res.act) res.act]
+    ?<  eco.pod.per
+    =/  adl=(list ship)
+      %~  tap  in
+      (~(dif in add.act) ~(aar mom pod.per))
+    =+  coz=*(list card)
+    |-  
+    ?~  adl
+      ['orca-success-send-call' coz +.state]
+    =/  wir=path
+      :~  %tempt
+          (scot %p i.adl)
+          (scot %p entity.res.act)
+          (scot %tas name.res.act)
+      ==
+    %=    $
+        adl
+      t.adl
+    ::
+        coz
+      %+  welp  coz
+      :~  :*
+        %pass   wir
+        %agent  [i.adl %orca]
+        %poke   %orca-song
+        !>(`sing`[%tempt per])
+      ==  ==
+    ==
+  ::
+      %swim
+    =/  podes=(unit pod)  (~(get by fam) res.act)
+    ?~  podes
+      ['orca-fail-bad-pod-mom' ~ +.state]
+    =.  fam  (~(del by fam) res.act)
+    ['orca-success-swim-away' ~ +.state]
+  ::
+      %hear
+        =/  pam=pods
+          %-  ~(rep in cal)
+          |=  [inn=por out=pods]
+          (~(put by out) res.inn pod.inn)
+        ?.  (~(has by pam) urs.act)
+          ['orca-fail-pod-father-smokes' ~ +.state]
+        =+  pid=(~(got by pam) urs.act)
+        ?.  luv.act
+          :+  'orca-success-ignore-call'
+            ~ 
+          +.state(cal (~(del in cal) [pid urs.act]))
+        ?.  =(our.bol entity.myn.act)
+          ['orca-fail-bad-resource' ~ +.state]
+        =.  fam  (~(put by fam) myn.act pid)
+        =/  wir=path
+          :~  
+            %range
+            (scot %p entity.myn.act)
+            (scot %tas name.myn.act)
+            (scot %p entity.urs.act)  
+            (scot %tas name.urs.act)
+            (scot %tas fin.pid)
+          ==
+        :-  'orca-success-hear-call'
+        :_  +.state(cal (~(del in cal) [pid urs.act]))
+        :~  :*
+          %pass   wir
+          %agent  [entity.urs.act %orca]
+          %poke   %orca-song
+          !>(`sing`[%agree pid myn.act])
+        ==  ==
+  ::
+      %echo
+    =/  new=(set resource)
+      =-  %-  ~(dif in rez.act) 
+          (~(uni in ~(key by fam)) -)
+      %+  roll  ~(val by fam)
+      |=  [[@ who=(set resource) @] o=(set resource)]
+      %-  ~(uni in o)
+      ^-  (set resource)
+      %-  ~(rep in who)
+      |=  [i=resource o=(set resource)]
+      ?.(=(our.bol -.i) o (~(put in o) i))
+    ?:  =(~(wyt in new) 0)
+      ['orca-fail-bad-resources' ~ +.state]
+    =+  pud=[fin.act rez.act %.y]
+    =+  lew=(snag 0 ~(tap in new))
+    ?.  =(our.bol -.lew)
+      ['orca-fail-bad-lead-resource' ~ +.state]
+    =.  fam  (~(put by fam) [lew pud])
+    ['orca-success-form-echo' ~ +.state]
+  ::
+      %more
+    =/  new=(set resource)
+      =-  %-  ~(dif in rez.act) 
+          (~(uni in ~(key by fam)) -)
+      %+  roll  ~(val by fam)
+      |=  [[@ who=(set resource) @] o=(set resource)]
+      %-  ~(uni in o)  ^-  (set resource)
+      %-  ~(rep in who)
+      |=  [i=resource o=(set resource)]
+      ?.(=(our.bol -.i) o (~(put in o) i))
+    ?.  (~(has by fam) res.act)
+      ['orca-fail-bad-resource' ~ +.state]
+    =+  pew=(~(got by fam) res.act)
+    ?.  eco.pew
+      ['orca-fail-only-echo-more' ~ +.state]
+    ?:  =(~(wyt in new) 0)
+      ['orca-fail-bad-resources' ~ +.state]
+    =.  pew  pew(who (~(uni in who.pew) new))
+    =.  fam  (~(put by fam) [res.act pew])
+    ['orca-success-find-more' ~ +.state]
+  ==
 --
