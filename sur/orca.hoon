@@ -72,6 +72,7 @@
 ::  %unite updates the who of a pod
 ::
 +$  sing  $%  [%biggs =pod seal=wave]
+              [%diggs =pod ind=index sig=signatures]
               [%tempt =por]
               [%agree =por]
               [%leave res=resource]

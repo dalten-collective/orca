@@ -59,6 +59,21 @@
       ;~((glue ace) ;~(pfix sig fed:ag) ;~(pfix cen sym))
     ?~  rus  '%orca error -> invalid pod-mother'
     `srkw`[%swim u.rus]
+  ::  ignore-call
+  ?:  ?&  (~(has by args) 'action-igno')
+          (~(has by args) 'myn')
+          (~(has by args) 'urs')
+      ==
+    =/  myn=(unit resource)
+      %+  rush  (~(got by args) 'myn')
+      ;~((glue bar) ;~(pfix sig fed:ag) sym)
+    =/  urs=(unit resource)
+      %+  rush  (~(got by args) 'urs')
+      %+  ifix  [sel ser]
+      ;~((glue ace) ;~(pfix sig fed:ag) ;~(pfix cen sym))    
+    ?:  |(?=(~ urs) ?=(~ myn))
+      '%orca error -> lost tune on hear'
+    `srkw`[%hear u.urs %.n u.myn]
   ::  hear-call
   ?:  ?&  (~(has by args) 'action-hear')
           (~(has by args) 'myn')
@@ -298,6 +313,8 @@
                 %-  ~(rep in metas)
                 |=  [res=resource out=marl]
                 ^-  marl
+                ?.  =(our.bol -.res)
+                  out
                 :_  out
                 ;option
                     =name  "resource"
@@ -311,6 +328,12 @@
             =type   "submit"
             =name   "hear"
             ; %hear call 🎶
+          ==
+          ;button
+            =name  "action-igno"
+            =type  "submit"
+            =name  "igno"
+            ; %ignore call 😒
           ==
         ==
       ==
