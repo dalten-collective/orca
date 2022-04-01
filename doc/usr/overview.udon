@@ -1,0 +1,112 @@
+;>
+`%orca` is a `pod`-chat agent. `pod`-chats are free-associations of chat resources on the Urbit network. These collections of resources, so federated, will start a second-network on top of their general graph store and pass messages from their users' inputs around the `pod`. Simply put, a `pod`-chat, so formed, will enable chats in one resource to appear, perfectly duplicated, in all other chats in the pod (including the `index` in the graph, allowing for easy referencing).
+
+In addition to passing messages, `%orca` performs two quality of life behaviors. First, it will transmit "re-signs" of a given message (i.e. likes, in EScape-UX/UI). Second, and slightly harder to put to paper, if you assume a `pod` of chats A, B and C, references (quoting) in pod A will be re-aligned to the same index position in the graphs of B and C which, assuming the `pod` was in form at the time of the referenced post, will allow them to resolve as if they were references to the B or C graphs and not, as originally posted, the A graph. This behavior has been tailored to not kick on references to non-`pod` chats.
+
+## Business Logic
+
+The business logic of `%orca` is best understood by examining the state first.
+
+### State
+
+```
++$  state-0
+  $:  fam=pods
+      pup=(jug ship pod)
+      cal=(set por)
+      mem=(set wave)
+  ==
+```
+
+Noting also the constituent parts:
+
+```
+::
+::  pod - a [fin=identifier who=group of ships eco=?].
+::  pods - a (map resource pod).
+::  por - a [pod resource].
+::
++$  pod   [fin=term who=(set resource) eco=?]
++$  pods  (map resource pod)
++$  por   [=pod res=resource]
+```
+
+and
+
+```
+::
+::  wave - a graph-store "nodes" for an add-nodes poke
+::
++$  wave  (map index node)
+--
+```
+
+Thus, we have:
+
+- `fam`, or a set of pods we participate in. It is formed as a map, with our participating (or primary, in the case of `eco` `pod`s, described later) `resource` (or chat) as the key and the pod itself as the value.
+- `pup`, or a jug of ships we've invited to `pod`s, where we haven't received a response back yet.
+- `cal`, (short for call), or requests we've been sent to join available pods.
+- `mem`, out of band for user interaction, this is basically just a function to prevent double posting or endless loop posting of data.
+
+Now let's look at how these work with user interactions to create the `pod`-chat behavior
+
+### Business Logic - Explained
+
+#### Creating
+
+A user creates a `pod` using one of the following two commands:
+- For Multi-Ship Pods (standard)
+
+```
+:orca &orca-dive [%form %my-pods-name [~rabsef-bicrym %starting-chat]]
+```
+
+- For Intra-Ship Pods (echo [`eco`=`%.y`] pods)
+
+```
+:orca &orca-dive [%echo %my-pods-name (sy ~[[~rabsef-bicrym %chat-a] [~rabsef-bicrym %chat-b]])]
+```
+
+- Note: These are particularly useful if you have public funnel chats for private groups elsewhere. You can pipe in the public channel into the private channel and everyone in the private channel can interact with and vet the public participants prior to inviting them into the inner sanctum, as it were (~minder-folden, credits due)
+
+#### Adding `Pod`-mates
+
+Any user of the pod, thereafter (though in the case of a `standard` pod, the only initial member is the creator) can add to the pod using the following two commands:
+- For Standard Pods
+
+```
+:orca &orca-dive [%call [~rabsef-bicrym %starting-chat] (sy ~[~dys ~wet ~nut])]
+```
+
+- For Echo Pods
+
+```
+:orca &orca-dive [%more [~rabsef-bicrym %chat-a] (sy ~[~rabsef-bicrym %chat-c] [~rabsef-bicrym %chat-d]])]
+```
+
+If dealing with a Standard Pod, offers to join (`%call`s, as above), are sent to the remote recipient (as a `tempt`, covered elsewhere), where they are stored in the `cal` element of the recipient's state, as well as being recorded as having been sent on the local ship, in `pup`.
+Echo Pods automatically accepted, as they're known to be your own resource.
+
+- Note: The software is designed to prevent Echo Pods from sharing resources used in Standard Pods so that the software cannot be used to leak consentual Standard Pod content over a Echo Pod to a group the Standard Pod members may not be aware of.
+
+#### Accepting Invites
+
+Users can accept or reject invitations they've received using the following command:
+
+```
+:orca &orca-dive [%hear [~rabsef-bicrym %starting-chat] %.y [~dashus-navnul %new-pod-mate]]
+```
+
+- Note: Here, `%.y` could be substitued for `%.n` to reject an invite.
+- Developer Note: This command should be updated to accept a `(unit resource)` which would change the behavior to "a null means no, and a unit means yes." Though, it would require changes to the sail front-end as well, which uses a library called rudder - we'd be happy to help someone with that.
+
+#### Leaving a Pod
+
+Leaving a pod can be achieved by:
+
+```
+:orca &orca-dive [%swim [~rabsef-bicrym %starting-chat]]
+```
+
+- Note: Leaving a pod does not destroy it for other members - they will continue on without you.
+

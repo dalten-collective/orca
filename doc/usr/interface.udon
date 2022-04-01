@@ -1,0 +1,45 @@
+;>
+`%orca`'s interface is built entirely in `sail` using a rudder from ~paldev labs called `rudder`. More can be found about `rudder`'s use [here](https://github.com/Fang-/suite/tree/master/lib/rudder). However, unlike real whaling expeditions, you needn't understand how to use your `rudder` to steer your ship with `%orca`.
+
+![orca-interface](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.3.29..17.07.04-image.png)
+> `%orca`'s interface, rendered from `sail`, using `rudder`, on a test ship
+
+##  `%orca` interface elements
+1. `open calls`
+  - `open calls` lists any incoming requests you've received to join a remote `pod`. 
+2. `your herds`
+  - `your herds` lists any pods you've joined, `echo` or `remote`.
+  - As noted in the copy, you can (a) invite `ship`s to `remote` pods, or add your internal resources to an extant `echo` pod.
+3. `form remote pod`
+  - `form remote pod` lets you set up a `remote` pod, as indicated.
+4. `form echo pod`
+  - `form echo pod` lets you set up an `echo` pod, in contrast to a `remote` pod.
+
+### `open calls`
+If another `%orca` user calls you to their pod, it will show under `open calls`:
+![orca-open-calls-example](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.4.01..20.20.20-image.png)
+
+You can select a resource in `myn` and click `%hear call` to accept the invitation or `%ignore call` to politely decline.
+
+### `your herds`
+From the `your herds` section of the interface, you can take one of two actions against each type of pod.
+
+![orca-your-herds-example](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.4.01..19.24.23-image.png)
+For a `remote` pod, you can `%call mates` (invite new ships) or `%swim away` (leave the pod).
+
+![orca-your-herds-echo-ex](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.4.01..19.42.32-image.png)
+For an `echo` pod, you can `%call cousins` (add new internal resources to the `echo` pod) or `%swim away` (leave the pod).
+
+### `form remote pod`
+![orca-form-pod-example](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.4.01..19.08.38-image.png)
+To form a `remote` pod, first give it a name. Select your internal resource as the "pod-mother", which will serve as your local chat where pod-messages will be relayed. 
+> Note: "pod-mother" is a local designation and has no real meaning other than it will be the resource by which you specify the pod, should you need to make changes or invite new users
+
+### `form echo pod`
+![orca-form-echo-pod-example](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.4.01..20.23.07-image.png)
+To form an `echo` pod, first give it a name. Select more than one of your internal resources (chats) - each of these will have duplication of their internal posts after forming this pod. Finally, click `%form echo` and you're all set.
+> Note: `%orca` is designed to disallow the duplicative use of resources in `echo` pods and `remote` pods. If you get it to do that, shame on you and please tell ~rabsef-bicrym. If you cannot, just know that it is by design (to prevent leaking otherwise consentual pods to a-consentual `echo` resources).
+
+That's about all you need to know to run `%orca`. As we develop and implement new features, we'll be sure to update the documentation.
+
+> Note: Quartus runs a support chat for `%orca` (as well as our other products) at ~mister-hilper-dozzod-dalten/quartus.
