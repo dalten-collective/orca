@@ -1,13 +1,10 @@
 :-
 :: usr
 :~  [/overview/udon 'Overview']
+    [/interface/udon 'Interface']
 ==
 :: dev
 :~  :-  %$
-    :~  [/overview/udon 'Overview']
-        [/sneeds-snf/udon '%mull form - %sneed']
-        [/meme-says/udon '%meme - %says']
-        [/meme-keep/udon '%meme - %keep']
-        [/meme-dead/udon '%meme - %dead']
+    :~  [/changelog/udon 'Changelog']
     ==
 ==

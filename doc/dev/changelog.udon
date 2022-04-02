@@ -1,0 +1,19 @@
+;>
+
+##  0.0.2
+
+Date: ~2022.3.17
+
+- Corrected both known bugs
+- known bugs:
+  - Timers can double up sometimes in `behn`
+  - Somehow the last push de-sync'ed multiple ships - perhaps as a result of subscription nonsense but I'm not sure where.
+
+##  0.0.1
+
+Date: ~2022.2.10
+
+- initial release
+- known bugs:
+  - EScape `+1` functionality was tortured by `%orca` re-signing every message it saw.
+  - All references re-structured as pointing to the local resource.
