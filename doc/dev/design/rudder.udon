@@ -1,0 +1,9 @@
+;>
+
+## Source
+
+Rudder is a library developed by ~paldev, available [here](https://github.com/Fang-/suite/blob/master/lib/rudder.hoon).
+
+## Use
+
+Rudder is used, in `orca` to serve a front end. Using rudder reduces overhead in raw http traffic handling through eyre.

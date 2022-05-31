@@ -1,5 +1,7 @@
 ;>
-`%orca`'s interface is built entirely in `sail` using a rudder from ~paldev labs called `rudder`. More can be found about `rudder`'s use [here](https://github.com/Fang-/suite/tree/master/lib/rudder). However, unlike real whaling expeditions, you needn't understand how to use your `rudder` to steer your ship with `%orca`.
+`%orca`'s interface is built entirely in `sail` using a rudder from ~paldev labs called `rudder`. More can be found about `rudder`'s use [here](https://github.com/Fang-/suite/tree/master/lib/rudder).
+
+However, unlike real whaling expeditions, you needn't understand how to use your `rudder` to steer your ship with `%orca`.
 
 ![orca-interface](https://freedom-club.sfo2.digitaloceanspaces.com/rabsef-bicrym/2022.3.29..17.07.04-image.png)
 > `%orca`'s interface, rendered from `sail`, using `rudder`, on a test ship

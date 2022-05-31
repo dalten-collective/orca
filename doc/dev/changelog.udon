@@ -1,5 +1,13 @@
 ;>
 
+##  0.0.3
+
+Date: ~2022.5.30
+
+- Identified and Corrected issue w/ echo-pods not re-structuring references as with remote-pods.
+- Update for new distributed version of `%docs`
+- Update for kelvin upgrade `[%zuse 418]`
+
 ##  0.0.2
 
 Date: ~2022.3.17

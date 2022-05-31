@@ -1,7 +1,10 @@
 ;>
-`%orca` is a `pod`-chat agent. `pod`-chats are free-associations of chat resources on the Urbit network. These collections of resources, so federated, will start a second-network on top of their general graph store and pass messages from their users' inputs around the `pod`. Simply put, a `pod`-chat, so formed, will enable chats in one resource to appear, perfectly duplicated, in all other chats in the pod (including the `index` in the graph, allowing for easy referencing).
 
-In addition to passing messages, `%orca` performs two quality of life behaviors. First, it will transmit "re-signs" of a given message (i.e. likes, in EScape-UX/UI). Second, and slightly harder to put to paper, if you assume a `pod` of chats A, B and C, references (quoting) in pod A will be re-aligned to the same index position in the graphs of B and C which, assuming the `pod` was in form at the time of the referenced post, will allow them to resolve as if they were references to the B or C graphs and not, as originally posted, the A graph. This behavior has been tailored to not kick on references to non-`pod` chats.
+`orca` is a tool for forming federated chats on Urbit (hereafter, `pod`-chats or `pod`s). `pod`-chats are free-associations of chat resources on the Urbit network. These collections of resources, so federated, will start a second-network on top of their general graph store and pass messages from their users' inputs around the `pod`. Simply put, a `pod`-chat will enable chats in one resource to appear, perfectly duplicated, in all other chats in the pod (including the `index` in the graph, allowing for easy referencing).
+
+Generally, `orca` tries to recreate messages with fidelity in all `pod` members' chats, with two "quality of life" exceptions:
+- `orca` artificially transmits "re-signs" of a given message (i.e. likes, in EScape-UX/UI) between the groups. That is to say, people might "like" a post in my graph but not actually be privy to my graph, having, instead, liked the post in some other graph in the pod.
+- `orca` redirects "references" in chats to local indices. That is to say, if we have a `pod` with two chats (A and B), a reference made _in_ A, _to_ A, will be translated, in B, to a reference to the identical post _in_ B. This re-direction prevents needing to be in both graphs to see the referenced post.
 
 ## Business Logic
 
@@ -43,7 +46,7 @@ and
 
 Thus, we have:
 
-- `fam`, or a set of pods we participate in. It is formed as a map, with our participating (or primary, in the case of `eco` `pod`s, described later) `resource` (or chat) as the key and the pod itself as the value.
+- `fam`, or a set of `pod`s we participate in. It is formed as a map, with our participating (or primary, in the case of `eco` `pod`s, described later) `resource` (or chat) as the key and the pod itself as the value.
 - `pup`, or a jug of ships we've invited to `pod`s, where we haven't received a response back yet.
 - `cal`, (short for call), or requests we've been sent to join available pods.
 - `mem`, out of band for user interaction, this is basically just a function to prevent double posting or endless loop posting of data.

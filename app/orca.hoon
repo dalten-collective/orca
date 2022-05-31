@@ -346,52 +346,72 @@
 ++  on-agent
   |=  [=wire =sign:agent:gall]
   |^  ^-  (quip card _this)
-  ?-    -.sign
-      %kick
-    ?+    wire  `this
-        [%orca %spyhop ~]
+  ?+    wire  `this
+      [%orca %spyhop ~]                                  ::  watch graph-store [%updates ~]
+    ?+    -.sign  `this
+        %kick                                            ::  resubscribe on kick
       :_  this
-      :~  :*
-        %pass   [%orca %spyhop ~]
-        %agent  [our.bowl %graph-store]
-        %watch  [%updates ~]
-      ==  ==
+      =-  [%pass /orca/spyhop %agent -]~
+      [[our.bowl %graph-store] %watch [%updates ~]]
+    ::
+        %watch-ack                                       ::  error on watch-nack
+      ?~  p.sign  `this
+      %.  `this
+      (slog leaf+"%orca-error -failed-subscription-to-graph")
+    ::
+        %fact                                            ::  handle incoming messages on [%updates ~]
+      ?.  ?=(%graph-update-3 p.cage.sign)  `this
+      =/  act=action  +:!<(update q.cage.sign)
+      ?+    -.act  `this
+          %add-signatures                                ::::  pass signatures around
+        ?~  podos=(~(get by fam) resource.uid.act)  `this
+        :_  this
+        %-  ~(mar mom:fish u.podos)
+        [resource.uid.act index.uid.act signatures.act]
+      ::
+          %add-nodes                                     ::::  pass nodes around
+        =/  mec=(map resource resource)
+          (~(rep by fam) dad:fish)
+        =/  rus=(unit resource)
+          ^-  (unit resource)
+          ?.  (~(has in ~(key by fam)) resource.act)
+          (~(get by mec) resource.act)  `resource.act
+        ?~  rus  `this
+        ?:  (~(has in mem) nodes.act)
+          `this(mem (~(del in mem) nodes.act))
+        :_  this
+        (~(sea mom:fish (~(got by fam) u.rus)) act)
+      ==
     ==
   ::
-      %watch-ack
-    `this
-  ::
-      %poke-ack
-    ?+    wire  `this
-        [%range @ @ @ @ @ ~]
+      [%range @ @ @ @ @ ~]                               ::  Check for poke ack inter-ship comms
+    ?+    -.sign  `this
+        %poke-ack
       =/  mines=resource
         [(slav %p +<.wire) (slav %tas +>-.wire)]
       =/  yours=resource
         [(slav %p +>+<.wire) (slav %tas +>+>-.wire)]
       =/  fluke=term  (slav %tas +>+>+<.wire)
       =/  podes=pod   (~(got by fam) mines)
-      =/  wired=path
-        :~  
-          %spake
-          (scot %p entity.mines)  (scot %tas name.mines)
-          (scot %p entity.yours)  (scot %tas name.yours)
-          (scot %tas fluke)
-        ==
-      =/  pathd=path
-        :~  %spake
-            (scot %p entity.yours)
-            (scot %tas name.yours)
-            (scot %tas fluke)
-        ==    
       ?>  =(fluke fin.podes)
-      :_  this
-      :~  :*
-        %pass   wired
-        %agent  [entity.yours %orca]
-        %watch  pathd
-      ==  ==
-    ::
-        [%tempt @ @ @ ~]
+      =;  [wir=path pat=path]
+        :_  this
+        [%pass wir %agent [entity.yours %orca] %watch pat]~
+      :_
+        ;:  weld
+          /spake
+          /(scot %p entity.yours)
+          /(scot %tas name.yours)
+          /(scot %tas fluke)
+        ==
+      %+  weld
+        /spake/(scot %p entity.mines)/(scot %tas name.mines)
+      /(scot %p entity.yours)/(scot %tas name.yours)/(scot %tas fluke)
+    ==
+  ::
+      [%tempt @ @ @ ~]
+    ?+    -.sign  `this
+        %poke-ack
       =/  your=ship  (slav %p +<.wire)
       =/  mine=resource
         [(slav %p +>-.wire) (slav %tas +>+<.wire)]
@@ -401,38 +421,12 @@
       `this
     ==
   ::
-      %fact
-    ?+    +<.sign  ((slog leaf+"%orca-strange-fact" ~) `this)
-        %graph-update-3
-      =/  act=action  +:!<(update +>.sign)
-      ?+    -.act  `this
-          %add-signatures
-        ?~  podos=(~(get by fam) resource.uid.act)  `this
-        :_  this
-        %-  ~(mar mom:fish u.podos)
-        [resource.uid.act index.uid.act signatures.act]
-      ::
-          %add-nodes
-        =/  mec=(map resource resource)
-          (~(rep by fam) dad:fish)
-        =/  rus=(unit resource)
-          ^-  (unit resource)
-          ?.  (~(has in ~(key by fam)) resource.act)
-            ?.  (~(has in ~(key by mec)) resource.act)
-              ~
-            (~(get by mec) resource.act)
-          `resource.act
-        ?~  rus  `this
-        ?:  (~(has in mem) nodes.act)
-          `this(mem (~(del in mem) nodes.act))
-        :_  this
-        (~(sea mom:fish (~(got by fam) u.rus)) act)
-      ==
-    ::
-        %orca-song
-      =/  note=sing  !<(sing +>.sign)
-      :: wire=[%spake our-resource their-resource fin]
-      ?>  ?=([%spake @ @ @ @ @ ~] wire)
+  ::  wire=[%spake our-resource their-resource fin]
+      [%spake @ @ @ @ @ ~]
+    ~&  >>>  wire
+    ?+    -.sign  `this
+        %fact
+      ?.  ?=(%orca-song p.cage.sign)  `this
       =/  mines=resource
         [(slav %p +<.wire) (slav %tas +>-.wire)]
       =/  yours=resource
@@ -448,9 +442,33 @@
         :_  this
         [%pass wire %agent [src.bowl %orca] %leave ~]~
       ::
+      =/  note=sing  !<(sing +>.sign)
       ?+    -.note  `this
           %biggs
-        =+  wav=(~(rep by seal.note) ~(fix sis:fish mines))
+        =/  wav
+          %-  ~(rep by seal.note)
+          |=  [[ind=index:store nod=node:store] out=wave]
+          ?.  ?=(%.y -.post.nod)  out
+          ?~  hash.p.post.nod     (~(put by out) ind nod)
+          =.  p.post.nod
+            =-  p.post.nod(contents -)
+            %+  turn  contents.p.post.nod
+            |=  con=content:store
+            ?.  ?=([%reference @ *] con)  con
+            ?.  ?=([%graph [@ @] [[@ @] *]] +.con)  con
+            =*  cuz  ~(has in who:(~(got by fam) mines))
+            ?.  (cuz [+>+<-.con +>+<+.con])  con
+            :+  %reference  %graph
+            :_  [mines +>+>.con]
+            %.  [%graph mines]
+            =-  ~(got by .^((map md-resource:medal resource) %gy -))
+            ;:  weld
+              /(scot %p our.bol)
+              /metadata-store
+              /(scot %da now.bol)
+              /resource-indices
+            ==
+          (~(put by out) ind [[%.y p.post.nod] children.nod])
         =/  notes=action:store  [%add-nodes mines wav]
         :_  this(mem (~(put in mem) wav))
         :~  :*  %pass   /blip/(scot %tas fluke)
@@ -475,9 +493,6 @@
           .^(update:store %gx result)
         ?>  ?=([%add-nodes ^ *] q.pengu)
         =+  czech=`(map index:store node:store)`+>.q.pengu
-        ::?.  (~(all by czech) |=(n=node:store =(%.y -.n)))
-        ::  ~&  >  "some not node"
-        ::  `this
         =/  sigur=signatures:store
           %-  ~(rep by czech)
           |=  [[i=index:store n=node:store] o=signatures:store]
@@ -509,8 +524,8 @@
         ?:  =(entity.res our.bowl)  ~
         =/  wir=path
           :~  %spake
-              (scot %p entity.mines)    (scot %tas name.mines)
-              (scot %p entity.res)      (scot %tas name.res)
+              (scot %p entity.mines)  (scot %tas name.mines)
+              (scot %p entity.res)    (scot %tas name.res)
               (scot %tas fluke)
           ==
         =/  pat=path
@@ -544,22 +559,24 @@
     ?>  (~(huh mom:fish u.podos) src.bowl)
       ::  everything seems right
     =/  lyric=(list content)
-      ~[[%text 'pod-chat click:'] [%mention our.bowl] [%text 'hears this song']]
+      ~[[%text 'pod-chat click:'] [%mention src.bowl] [%text 'hears this song']]
     =/  moist=wave
       %+  ~(put by *wave)  ~[now.bowl]
       [[%& [our.bowl ~[now.bowl] now.bowl lyric ~ ~]] [%empty ~]]
     =/  wired=^path
       [%echo (scot %da now.bowl) (scot %tas fin.u.podos) ~]
     :_  this
-    :~  :^  %give  %fact  ~
-        [%orca-song !>(`sing`[%biggs u.podos moist])]
-        :^  %give  %fact  ~
-        [%orca-song !>(`sing`[%unite who.u.podos])]
-        :*  %pass   wired
-            %agent  [our.bol %graph-store]
-            %poke   %graph-update-3
-            !>(`update:store`[now.bol [%add-nodes theme moist]])
-    ==  ==
+    :~
+      :^  %give  %fact  ~
+      [%orca-song !>(`sing`[%biggs u.podos moist])]
+    ::
+      :^  %give  %fact  ~
+      [%orca-song !>(`sing`[%unite who.u.podos])]
+    ::
+      :^  %pass  wired  %agent
+      :^  [our.bol %graph-store]  %poke  %graph-update-3
+      !>(`update:store`[now.bol [%add-nodes theme moist]])
+    ==
   ==
 ::
 ++  on-leave
@@ -645,41 +662,6 @@
     out  (~(put by out) i.rel res.inn)
   ==
 ::
-++  sis
-  |_  res=resource
-  ++  fix
-    |=  [[ind=index:store nod=node:store] out=wave]
-    ?.  ?=(%.y -.post.nod)
-      (~(put by out) ind nod)
-    ?~  hash.p.post.nod
-      (~(put by out) ind nod)
-    =*  p  p.post.nod
-    =/  remora=[(list content:store) (unit hash:store) (set signature)]
-      =+  mux=(turn contents.p mix)
-      ?:  =(contents.p mux)  [contents.p hash.p signatures.p]
-      =+  hah=`@ux`(sham [~ author.p time-sent.p (turn contents.p mix)])
-      [(turn contents.p mix) `hah (sy ~[(sign:sign our.bol now.bol hah)])]
-    =/  barnacle=post:store
-      [author.p index.p time-sent.p remora]
-    (~(put by out) ind [[%.y barnacle] children.nod])
-  ::
-  ++  max
-    .^  (map md-resource:medal resource)  %gy
-        :~  (scot %p our.bol)   %metadata-store
-            (scot %da now.bol)  %resource-indices
-    ==  ==
-  ::
-  ++  mix
-    |=  con=content:store
-    ?.  ?=([%reference @ *] con)  con
-    ?.  ?=([%graph [@ @] [[@ @] *]] +.con)  con
-    =*  cuz  ~(has in who:(~(got by fam) res))
-    ?.  (cuz [+>+<-.con +>+<+.con])  con
-    :^  %reference  %graph
-      (~(got by max) [%graph res])
-    [res +>+>.con]
-  --
-::
 ++  mom
   |_  p=pod
   ::
@@ -724,10 +706,35 @@
       ==
     |-
     ?~  herd
-      (welp out [%give %fact [pat]~ [%orca-song !>(`sing`tun)]]~)
-    =+  upd=[%add-nodes i.herd nodes.act]
-    ?.  =(our.bol entity.i.herd)
-      $(herd t.herd)
+      :_  out
+      [%give %fact [pat]~ [%orca-song !>(`sing`tun)]]
+    ?.  =(our.bol entity.i.herd)  $(herd t.herd)
+    =/  n=(map index:store node:store)  nodes.act
+    =.  n
+      %-  ~(rep by n)
+      |=  [[ind=index:store nod=node:store] out=wave]
+      ?.  ?=(%.y -.post.nod)  out
+      ?~  hash.p.post.nod     (~(put by out) ind nod)
+      =.  p.post.nod
+        =-  p.post.nod(contents -)
+        %+  turn  contents.p.post.nod
+        |=  con=content:store
+        ?.  ?=([%reference @ *] con)  con
+        ?.  ?=([%graph [@ @] [[@ @] *]] +.con)  con
+        =*  cuz  ~(has in who:(~(got by fam) i.herd))
+        ?.  (cuz [+>+<-.con +>+<+.con])  con
+        :+  %reference  %graph
+        :_  [i.herd +>+>.con]
+        %.  [%graph i.herd]
+        =-  ~(got by .^((map md-resource:medal resource) %gy -))
+        ;:  weld
+          /(scot %p our.bol)
+          /metadata-store
+          /(scot %da now.bol)
+          /resource-indices
+        ==
+      (~(put by out) ind [[%.y p.post.nod] children.nod])
+    =+  upd=[%add-nodes i.herd n]
     %=    $
       herd  t.herd
     ::

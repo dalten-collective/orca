@@ -1,0 +1,34 @@
+;>
+
+> Some of the following may be hyperbole.
+
+## Fulfilling the Promise of Federated Chats
+
+Early in my Urbit experience, as I joined groups that were available (at that time, very few), I began to wonder "What would happen if two groups, on similar subjects, grew without knowing each other? What if they reached a critical mass and wanted to merge?".
+
+At that time, the common answer was that the chats would federate into a metachat where they overlapped and maintain independence where they differed in their subject matter. That, in fact, several branches of a community could reach out and federate with other communities on single subjects, otherwise remaining separate and cloystered.
+
+At the time, there really was no need for such a tool - duplicative subject-matter groups weren't yet a thing and an active user could generally be familiar with every @p they might encounter across all those groups - pre-dunbar-user-levels.
+
+But, as the network grew, so too did my capacity to produce Tools of My Own, on Urbit, in Hoon. In late 2021, the idea to build `orca` came to me as I worked on some _other_ tooling designed to restore chats on a dead star across a breach (this product is now called `peat` [as in repeat] and was formerly called `oger`).
+
+In early 2022, Quartus was able to push the first version of `orca` to the Urbit community, to much confusion and consternation. The product is intentionally obscurant in it's jargon in what is an attempt at art (you are free to judge the success or failure of that artistic attempt, separate from the utility of the product, which speaks for itself).
+
+Since then, `orca` has undergone three alpha revisions and is now at version `0.0.3`.
+
+## Uses
+
+Orca allows users to do one of two things:
+- Join a chat they host to a group of _remote_ chats (i.e. chats hosted by other users).
+  - Each `ship` participating in the `pod` (term for a group of chats participating in a federated chat) _opts in_ to the pod, and can select, on their own, which chat they include in such pod.
+  - Each such `ship` is also enabled to invite additional `ship`s to the `pod`.
+  - Once more than one user is in a pod, there is no owner of that pod, there is only trust between the existing participants.
+- Connect many chats that they host to each other in an _echo_ `pod`.
+  - Since the user is the host of all of the chats, there is no permissiveness, only a family of chats that are bound together by will and love.
+  - A host of an echo `pod` can, at will, connect any of the chats they host into the `pod` (or any variant of same with more than one such `pod`) **except**
+  > An echo `pod` cannot include a chat that is in a remote `pod` - this would defeat the trust-permissiveness of the remote model and is therefore not allowed.
+
+## On Family
+
+Orca is dedicated to my Father-in-Law who is a good man. Thank you for thinking a kind thought about him on reading this.
+
