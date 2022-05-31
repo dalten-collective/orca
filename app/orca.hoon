@@ -423,7 +423,6 @@
   ::
   ::  wire=[%spake our-resource their-resource fin]
       [%spake @ @ @ @ @ ~]
-    ~&  >>>  wire
     ?+    -.sign  `this
         %fact
       ?.  ?=(%orca-song p.cage.sign)  `this
@@ -449,9 +448,8 @@
           %-  ~(rep by seal.note)
           |=  [[ind=index:store nod=node:store] out=wave]
           ?.  ?=(%.y -.post.nod)  out
-          ?~  hash.p.post.nod     (~(put by out) ind nod)
           =.  p.post.nod
-            =-  p.post.nod(contents -)
+            =-  p.post.nod(contents -, signatures ~, hash ~)
             %+  turn  contents.p.post.nod
             |=  con=content:store
             ?.  ?=([%reference @ *] con)  con
@@ -463,9 +461,9 @@
             %.  [%graph mines]
             =-  ~(got by .^((map md-resource:medal resource) %gy -))
             ;:  weld
-              /(scot %p our.bol)
+              /(scot %p our.bowl)
               /metadata-store
-              /(scot %da now.bol)
+              /(scot %da now.bowl)
               /resource-indices
             ==
           (~(put by out) ind [[%.y p.post.nod] children.nod])
@@ -709,20 +707,20 @@
       :_  out
       [%give %fact [pat]~ [%orca-song !>(`sing`tun)]]
     ?.  =(our.bol entity.i.herd)  $(herd t.herd)
+    ?:  =(res.act i.herd)  $(herd t.herd)
     =/  n=(map index:store node:store)  nodes.act
     =.  n
       %-  ~(rep by n)
       |=  [[ind=index:store nod=node:store] out=wave]
       ?.  ?=(%.y -.post.nod)  out
-      ?~  hash.p.post.nod     (~(put by out) ind nod)
       =.  p.post.nod
-        =-  p.post.nod(contents -)
+        =-  p.post.nod(contents -, signatures ~, hash ~)
         %+  turn  contents.p.post.nod
         |=  con=content:store
         ?.  ?=([%reference @ *] con)  con
+            ::  graph  group  uid/resource
         ?.  ?=([%graph [@ @] [[@ @] *]] +.con)  con
-        =*  cuz  ~(has in who:(~(got by fam) i.herd))
-        ?.  (cuz [+>+<-.con +>+<+.con])  con
+        ?.  (~(has in who.p) [+>+<-.con +>+<+.con])  con
         :+  %reference  %graph
         :_  [i.herd +>+>.con]
         %.  [%graph i.herd]
@@ -734,18 +732,17 @@
           /resource-indices
         ==
       (~(put by out) ind [[%.y p.post.nod] children.nod])
-    =+  upd=[%add-nodes i.herd n]
     %=    $
       herd  t.herd
     ::
         out
       %+  welp  out
-      :~  :*
-        %pass   /echo/(scot %da now.bol)/(scot %tas fin.p)
-        %agent  [our.bol %graph-store]
-        %poke   %graph-update-3
-        !>(`update:store`[now.bol upd])
-      ==  ==
+      :~  
+        :+  %pass   /echo/(scot %da now.bol)/(scot %tas fin.p)
+        :+  %agent  [our.bol %graph-store]
+        =-  [%poke %graph-update-3 -]
+        !>(`update:store`[now.bol [%add-nodes i.herd n]])
+      ==
     ==
   --
 ::
