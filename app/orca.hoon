@@ -9,7 +9,7 @@
 ::  and The Word play for 10,000 years, to guide them.
 ::
 /-  *orca, post, store=graph-store, medal=metadata-store
-/+  default-agent, dbug, *resource, sign=signatures, rudder
+/+  default-agent, dbug, *resource, signs=signatures, rudder
 /~  pages  (page:rudder state-0 srkw)  /app/orca
 ::
 |%
@@ -449,7 +449,7 @@
           |=  [[ind=index:store nod=node:store] out=wave]
           ?.  ?=(%.y -.post.nod)  out
           =.  p.post.nod
-            =-  p.post.nod(contents -, signatures ~, hash ~)
+            =-  p.post.nod(contents -)
             %+  turn  contents.p.post.nod
             |=  con=content:store
             ?.  ?=([%reference @ *] con)  con
@@ -466,6 +466,14 @@
               /(scot %da now.bowl)
               /resource-indices
             ==
+          =.  hash.p.post.nod
+            ^-  (unit @ux)
+            :-  ~  ;;  @ux
+            %-  sham
+            :+  ~  author.p.post.nod
+            [time-sent.p.post.nod contents.p.post.nod]
+          =.  signatures.p.post.nod
+            (sy ~[(sign:signs our.bowl now.bowl (need hash.p.post.nod))])
           (~(put by out) ind [[%.y p.post.nod] children.nod])
         =/  notes=action:store  [%add-nodes mines wav]
         :_  this(mem (~(put in mem) wav))
@@ -476,6 +484,7 @@
         ==  ==
       ::
           %diggs
+        ~&  >>>  "in diggs"
         =/  exists=path
           :*  (scot %p our.bowl)  %graph-store  (scot %da now.bowl)
               %graph  (scot %p entity.mines)  (scot %tas name.mines)
@@ -714,7 +723,7 @@
       |=  [[ind=index:store nod=node:store] out=wave]
       ?.  ?=(%.y -.post.nod)  out
       =.  p.post.nod
-        =-  p.post.nod(contents -, signatures ~, hash ~)
+        =-  p.post.nod(contents -, hash ~)
         %+  turn  contents.p.post.nod
         |=  con=content:store
         ?.  ?=([%reference @ *] con)  con
@@ -731,6 +740,14 @@
           /(scot %da now.bol)
           /resource-indices
         ==
+        =.  hash.p.post.nod
+          ^-  (unit @ux)
+          :-  ~  ;;  @ux
+          %-  sham
+          :+  ~  author.p.post.nod
+          [time-sent.p.post.nod contents.p.post.nod]
+        =.  signatures.p.post.nod
+          (sy ~[(sign:signs our.bol now.bol (need hash.p.post.nod))])
       (~(put by out) ind [[%.y p.post.nod] children.nod])
     %=    $
       herd  t.herd
