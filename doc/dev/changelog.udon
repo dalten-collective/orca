@@ -1,5 +1,12 @@
 ;>
 
+##  0.0.4
+
+Date: ~2022.6.2
+
+- Updated signature behavior
+- Updated hashing behavior to allow unsupported usecase of notebook pods
+
 ##  0.0.3
 
 Date: ~2022.5.30
