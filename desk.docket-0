@@ -3,7 +3,7 @@
     color+0x11.181e
     site+/apps/orca
     base+'orca'
-    version+[0 0 3]
+    version+[0 0 4]
     website+'https://dalten.org/'
     license+'Get Rekt'
 ==
